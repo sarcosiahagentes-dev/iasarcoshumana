@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaPura - Llenado Premium de Botellones</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --pastel-blue-light: #eaf6fc;
+            --pastel-blue-mid: #b9e5f8;
+            --pastel-blue-vivid: #0284c7;
+            --pastel-blue-dark: #0369a1;
+            
+            --pastel-green-light: #ecfdf5;
+            --pastel-green-mid: #a7f3d0;
+            --pastel-green-vivid: #059669;
+            --pastel-green-dark: #047857;
+
+            --slate-main: #0f172a;
+            --slate-muted: #475569;
+            --bg-canvas: #f8fafc;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--slate-main);
+            background-color: var(--bg-canvas);
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Navbar */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 30px rgba(2, 132, 199, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+            color: var(--pastel-blue-dark);
+        }
+
+        .nav-link {
+            font-weight: 600;
+            color: var(--slate-muted);
+            margin: 0 6px;
+            padding: 8px 16px !important;
+            border-radius: 30px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--pastel-blue-vivid);
+            background-color: rgba(185, 229, 248, 0.25);
+        }
+
+        /* Modern Gradient Hero */
+        .hero-section {
+            background: radial-gradient(circle at 80% 20%, #dbeafe 0%, rgba(236, 253, 245, 0.8) 45%, #f8fafc 100%);
+            position: relative;
+        }
+
+        /* Ultra-modern Buttons */
+        .btn-pastel-glow {
+            background: linear-gradient(135deg, #0284c7 0%, #059669 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 50px;
+            padding: 14px 32px;
+            font-weight: 700;
+            box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.4);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-pastel-glow:hover {
+            color: #ffffff;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 18px 30px -5px rgba(5, 150, 105, 0.45);
+        }
+
+        .btn-pastel-outline {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--slate-main);
+            border: 2px solid #e2e8f0;
+            border-radius: 50px;
+            padding: 14px 32px;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .btn-pastel-outline:hover {
+            border-color: var(--pastel-blue-vivid);
+            color: var(--pastel-blue-vivid);
+            background: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Badges */
+        .badge-soft {
+            background: rgba(2, 132, 199, 0.1);
+            color: var(--pastel-blue-vivid);
+            border: 1px solid rgba(2, 132, 199, 0.2);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.88rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge-soft-green {
+            background: rgba(5, 150, 105, 0.1);
+            color: var(--pastel-green-vivid);
+            border: 1px solid rgba(5, 150, 105, 0.2);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.88rem;
+        }
+
+        /* Glass Card Base */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 28px;
+            box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.05);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px -12px rgba(2, 132, 199, 0.12);
+            border-color: var(--pastel-blue-mid);
+        }
+
+        /* Process Steps Indicator */
+        .step-pill {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--pastel-blue-light), var(--pastel-blue-mid));
+            color: var(--pastel-blue-dark);
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
+        }
+
+        /* Floating Widgets for Socials */
+        .floating-social {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1080;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .social-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .social-btn:hover {
+            transform: scale(1.15) rotate(-3deg);
+            color: white;
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+        }
+
+        .btn-instagram {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        }
+
+        .social-btn .social-tooltip {
+            visibility: hidden;
+            background: rgba(15, 23, 42, 0.9);
+            color: #fff;
+            text-align: center;
+            border-radius: 10px;
+            padding: 6px 12px;
+            position: absolute;
+            right: 75px;
+            font-size: 13px;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            white-space: nowrap;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+
+        .social-btn:hover .social-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Subtle Ambient Glow Effect */
+        .glow-effect {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.45;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .glow-blue { background: #38bdf8; top: 10%; right: 5%; }
+        .glow-green { background: #34d399; bottom: 10%; left: 5%; }
+
+        /* Custom Input Fields */
+        .form-control-custom {
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 14px 18px;
+            font-size: 0.98rem;
+            transition: all 0.25s ease;
+            background: #f8fafc;
+        }
+
+        .form-control-custom:focus {
+            border-color: var(--pastel-blue-vivid);
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.12);
+            outline: none;
+        }
+
+        @media (max-width: 991px) {
+            .hero-title { font-size: 2.5rem; }
+            .floating-social { bottom: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <nav class="navbar navbar-expand-lg fixed-top glass-nav py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <svg width="40" height="40" viewBox="0 0 100 100" fill="none">
+                    <circle cx="50" cy="50" r="46" fill="url(#logoGrad)" />
+                    <path d="M50 20 C50 20 28 58 28 70 A22 22 0 0 0 72 70 C72 58 50 20 50 20 Z" fill="#ffffff"/>
+                    <path d="M44 58 C44 58 36 68 36 74 A14 14 0 0 0 60 76 C52 76 44 70 44 58 Z" fill="#bae6fd" opacity="0.8"/>
+                    <defs>
+                        <linearGradient id="logoGrad" x1="0" y1="0" x2="100" y2="100">
+                            <stop offset="0%" stop-color="#0284c7"/>
+                            <stop offset="100%" stop-color="#059669"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span>Aqua<span style="color: var(--pastel-green-vivid);">Pura</span></span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link active" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#proceso">Proceso</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#precios">Precios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                        <a href="https://wa.me/584126758140?text=Hola,%20quisiera%20solicitar%20un%20servicio%20de%20llenado%20de%20botellon" target="_blank" class="btn btn-pastel-glow btn-sm py-2 px-4">Pedir Agua</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero-section pt-5 mt-5 pb-5 position-relative overflow-hidden">
+        <div class="glow-effect glow-blue"></div>
+        <div class="glow-effect glow-green"></div>
+        <div class="container py-lg-5 position-relative" style="z-index: 1;">
+            <div class="row align-items-center g-5 min-vh-75">
+                <div class="col-lg-6">
+                    <span class="badge-soft mb-3"><i class="fas fa-sparkles text-warning"></i> Agua Purificada 100% Ozonizada</span>
+                    <h1 class="hero-title fw-extrabold display-4 mb-3 text-slate-900 lh-sm">
+                        La experiencia más pura e higiénica para tu agua diaria
+                    </h1>
+                    <p class="lead text-slate-muted mb-4 fs-5 fw-normal">
+                        Utilizamos tecnología avanzada de microfiltración de 7 etapas, ozono y luz UV para garantizar la máxima frescura y salud en cada botellón.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3 mb-4">
+                        <a href="https://wa.me/584126758140?text=Hola!%20Deseo%20hacer%20un%20pedido%20de%20llenado" target="_blank" class="btn btn-pastel-glow">
+                            <i class="fab fa-whatsapp me-2 fs-5"></i> Pedir por WhatsApp
+                        </a>
+                        <a href="#proceso" class="btn btn-pastel-outline">
+                            Conocer Proceso
+                        </a>
+                    </div>
+                    <div class="pt-4 border-top border-2 d-flex flex-wrap gap-4 text-slate-muted small fw-semibold">
+                        <div class="d-flex align-items-center gap-2"><i class="fas fa-shield-check text-emerald-500 fs-5"></i> 7 Pasos de Purificación</div>
+                        <div class="d-flex align-items-center gap-2"><i class="fas fa-microscope text-sky-500 fs-5"></i> Cero Residuos o Cloro</div>
+                        <div class="d-flex align-items-center gap-2"><i class="fas fa-truck-fast text-emerald-500 fs-5"></i> Envío Express</div>
+                    </div>
+                </div>
+
+                <!-- Hyper-realistic 3D-styled SVG Graphic -->
+                <div class="col-lg-6 text-center">
+                    <div class="position-relative d-inline-block w-100">
+                        <svg viewBox="0 0 650 550" class="w-100 h-auto filter drop-shadow-2xl">
+                            <defs>
+                                <!-- Gradients for hyper-realistic plastic, glass & water -->
+                                <radialGradient id="bottleBgGlow" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.25"/>
+                                    <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+                                </radialGradient>
+
+                                <linearGradient id="jugGlass" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+                                    <stop offset="25%" stop-color="#e0f2fe" stop-opacity="0.8"/>
+                                    <stop offset="60%" stop-color="#38bdf8" stop-opacity="0.6"/>
+                                    <stop offset="100%" stop-color="#0284c7" stop-opacity="0.85"/>
+                                </linearGradient>
+
+                                <linearGradient id="liquidWater" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.85"/>
+                                    <stop offset="50%" stop-color="#0284c7" stop-opacity="0.95"/>
+                                    <stop offset="100%" stop-color="#0369a1" stop-opacity="0.98"/>
+                                </linearGradient>
+
+                                <linearGradient id="steelMetallic" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#64748b"/>
+                                    <stop offset="30%" stop-color="#f8fafc"/>
+                                    <stop offset="70%" stop-color="#94a3b8"/>
+                                    <stop offset="100%" stop-color="#475569"/>
+                                </linearGradient>
+
+                                <!-- Drop Shadows -->
+                                <filter id="shadow3d" x="-10%" y="-10%" width="120%" height="120%">
+                                    <feDropShadow dx="0" dy="25" stdDeviation="20" flood-color="#0284c7" flood-opacity="0.2"/>
+                                </filter>
+                            </defs>
+
+                            <!-- Glowing Aura -->
+                            <circle cx="325" cy="280" r="210" fill="url(#bottleBgGlow)"/>
+
+                            <!-- Dispenser / Refill Station Visual Backing -->
+                            <rect x="180" y="40" width="290" height="440" rx="32" fill="#ffffff" stroke="#e2e8f0" stroke-width="4" filter="url(#shadow3d)"/>
+                            <rect x="200" y="60" width="250" height="130" rx="20" fill="#f0f9ff" stroke="#bae6fd" stroke-width="2"/>
+                            
+                            <!-- Digital Screen Display -->
+                            <rect x="220" y="75" width="210" height="50" rx="12" fill="#0f172a"/>
+                            <text x="325" y="106" font-family="Plus Jakarta Sans, sans-serif" font-size="18" fill="#34d399" text-anchor="middle" font-weight="800" letter-spacing="1">PURIFICADO 100%</text>
+
+                            <!-- Chrome Spout & Nozzle -->
+                            <rect x="305" y="190" width="40" height="35" rx="6" fill="url(#steelMetallic)"/>
+                            <polygon points="312,225 338,225 332,242 318,242" fill="#475569"/>
+
+                            <!-- Stream of Water -->
+                            <path d="M 322 242 C 322 290 323 330 322 340 L 328 340 C 327 330 328 290 328 242 Z" fill="#7dd3fc" opacity="0.9"/>
+                            <path d="M 324 242 C 324 290 324 330 324 340 L 326 340 C 326 330 326 290 326 242 Z" fill="#ffffff" opacity="0.95"/>
+
+                            <!-- Hyper-realistic 20L Water Jug (Botellón) -->
+                            <!-- Bottle Neck ring -->
+                            <rect x="295" y="325" width="60" height="18" rx="6" fill="url(#jugGlass)"/>
+                            
+                            <!-- Main Body with Curvatures -->
+                            <path d="M 230 400 C 230 350, 280 340, 295 340 L 355 340 C 370 340, 420 350, 420 400 L 420 460 C 420 480, 400 485, 325 485 C 250 485, 230 480, 230 460 Z" 
+                                  fill="url(#jugGlass)" stroke="#38bdf8" stroke-width="2.5"/>
+
+                            <!-- Water Fill Inside -->
+                            <path d="M 233 410 Q 325 425 417 410 L 417 458 C 417 476, 398 481, 325 481 C 252 481, 233 476, 233 458 Z" fill="url(#liquidWater)"/>
+
+                            <!-- Ribbed Texture / Ridges on Jug (Realism detail) -->
+                            <path d="M 235 390 Q 325 400 415 390" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.6"/>
+                            <path d="M 233 425 Q 325 438 417 425" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.5"/>
+                            <path d="M 233 450 Q 325 462 417 450" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.4"/>
+
+                            <!-- Photorealistic Curved Glass Reflections -->
+                            <path d="M 245 370 C 245 355, 275 348, 290 348" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" opacity="0.85"/>
+                            <line x1="244" y1="380" x2="244" y2="465" stroke="#ffffff" stroke-width="6" stroke-linecap="round" opacity="0.65"/>
+                            <line x1="254" y1="390" x2="254" y2="455" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.45"/>
+
+                            <!-- Realistic Rising Bubbles -->
+                            <circle cx="300" cy="450" r="5" fill="#ffffff" opacity="0.8"/>
+                            <circle cx="340" cy="460" r="7" fill="#ffffff" opacity="0.7"/>
+                            <circle cx="320" cy="430" r="4" fill="#ffffff" opacity="0.9"/>
+                            <circle cx="355" cy="440" r="3" fill="#ffffff" opacity="0.6"/>
+
+                            <!-- Eco Fresh Leaf Element Accent -->
+                            <g transform="translate(430, 410)">
+                                <path d="M 0 0 C 35 -30, 65 -10, 55 25 C 20 45, -10 25, 0 0 Z" fill="#10b981" stroke="#047857" stroke-width="2"/>
+                                <path d="M 0 0 Q 28 10 55 25" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicios" class="py-5 my-4">
+        <div class="container py-4">
+            <div class="text-center max-w-700 mx-auto mb-5">
+                <span class="badge-soft-green mb-2"><i class="fas fa-droplet me-1"></i> Nuestros Servicios</span>
+                <h2 class="fw-extrabold fs-1 text-slate-900">Soluciones Integrales de Agua Pura</h2>
+                <p class="text-slate-muted fs-5">Cumplimos con las normativas de purificación más estrictas para cuidar de tu salud.</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Service Card 1 -->
+                <div class="col-md-4">
+                    <div class="glass-card h-100 p-4 text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="mb-4 d-inline-block p-3 rounded-4 bg-sky-50">
+                                <svg width="70" height="70" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="42" fill="#e0f2fe"/>
+                                    <path d="M50 18 L72 65 C72 78 62 85 50 85 C38 85 28 78 28 65 Z" fill="#0284c7"/>
+                                    <path d="M42 50 C42 50 36 62 36 68 C36 74 42 78 50 78 C44 78 38 72 40 60 Z" fill="#ffffff" opacity="0.6"/>
+                                </svg>
+                            </div>
+                            <h4 class="fw-bold text-slate-900 mb-3">Recarga de Botellones</h4>
+                            <p class="text-slate-muted small lh-lg">
+                                Llenado de botellones de 19L y 20L con agua tratada mediante osmosis inversa y libre totalmente de sedimentos y mal sabor.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-top">
+                            <span class="fw-bold text-sky-600">Rápido y Confiable</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="col-md-4">
+                    <div class="glass-card h-100 p-4 text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="mb-4 d-inline-block p-3 rounded-4 bg-emerald-50">
+                                <svg width="70" height="70" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="42" fill="#d1fae5"/>
+                                    <path d="M50 20 C32 20 28 35 28 50 C28 70 50 82 50 82 C50 82 72 70 72 50 C72 35 68 20 50 20 Z" fill="#059669"/>
+                                    <path d="M42 48 L48 55 L60 40" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h4 class="fw-bold text-slate-900 mb-3">Esterilización de Envases</h4>
+                            <p class="text-slate-muted small lh-lg">
+                                Lavado y desinfección interna/externa con agua ozonizada a alta presión para eliminar bacterias antes de la recarga.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-top">
+                            <span class="fw-bold text-emerald-600">100% Higiénico</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="col-md-4">
+                    <div class="glass-card h-100 p-4 text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="mb-4 d-inline-block p-3 rounded-4 bg-sky-50">
+                                <svg width="70" height="70" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="42" fill="#e0f2fe"/>
+                                    <rect x="25" y="45" width="35" height="22" rx="4" fill="#0284c7"/>
+                                    <path d="M60 50 L75 50 L82 60 L82 67 L60 67 Z" fill="#38bdf8"/>
+                                    <circle cx="38" cy="67" r="7" fill="#0f172a"/>
+                                    <circle cx="72" cy="67" r="7" fill="#0f172a"/>
+                                </svg>
+                            </div>
+                            <h4 class="fw-bold text-slate-900 mb-3">Delivery a Domicilio</h4>
+                            <p class="text-slate-muted small lh-lg">
+                                Servicio cómodo y puntual. Entregamos botellones sellados directamente en la puerta de tu hogar, residencia o empresa.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-top">
+                            <span class="fw-bold text-sky-600">Directo a Tu Puerta</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Purification Process Section -->
+    <section id="proceso" class="py-5 bg-sky-50/50 position-relative">
+        <div class="container py-4">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-5">
+                    <span class="badge-soft mb-2"><i class="fas fa-filter me-1"></i> Garantía de Pureza</span>
+                    <h2 class="fw-extrabold fs-1 mb-3 text-slate-900">Proceso de Filtraje Mutietapa</h2>
+                    <p class="text-slate-muted mb-4">
+                        Nuestra planta utiliza un sistema automatizado para asegurar un agua ligera, cristalina y apta para toda la familia.
+                    </p>
+                    
+                    <div class="d-flex align-items-start gap-3 mb-4">
+                        <div class="step-pill flex-shrink-0">1</div>
+                        <div>
+                            <h5 class="fw-bold text-slate-900 mb-1">Filtración de Arena y Sílice</h5>
+                            <p class="text-slate-muted small m-0">Retiene sedimentos sólidos, polvo y partículas flotantes.</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start gap-3 mb-4">
+                        <div class="step-pill flex-shrink-0">2</div>
+                        <div>
+                            <h5 class="fw-bold text-slate-900 mb-1">Carbón Activado Granular</h5>
+                            <p class="text-slate-muted small m-0">Elimina el cloro, compuestos orgánicos, malos olores y sabores.</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start gap-3 mb-4">
+                        <div class="step-pill flex-shrink-0">3</div>
+                        <div>
+                            <h5 class="fw-bold text-slate-900 mb-1">Ósmosis, UV y Ozonización</h5>
+                            <p class="text-slate-muted small m-0">Purificación bacteriológica total con ozono activo para mayor durabilidad.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Realistic Metallic Filter Plant SVG -->
+                <div class="col-lg-7">
+                    <div class="glass-card p-4">
+                        <svg viewBox="0 0 700 420" class="w-100 h-auto rounded-4">
+                            <rect x="0" y="0" width="700" height="420" fill="#f8fafc" rx="16"/>
+                            
+                            <!-- Steel Header Pipe -->
+                            <path d="M 40 100 L 660 100" stroke="#94a3b8" stroke-width="16" stroke-linecap="round"/>
+                            <path d="M 40 100 L 660 100" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+
+                            <!-- Filter Towers (Metallic Effect) -->
+                            <!-- Tank 1: Silica -->
+                            <rect x="80" y="140" width="120" height="240" rx="24" fill="url(#metalGrad)"/>
+                            <rect x="95" y="160" width="90" height="24" rx="8" fill="#0284c7" opacity="0.2"/>
+                            <text x="140" y="270" font-weight="800" fill="#334155" text-anchor="middle" font-size="15">SÍLICE</text>
+
+                            <!-- Tank 2: Carbon -->
+                            <rect x="250" y="140" width="120" height="240" rx="24" fill="url(#metalGrad)"/>
+                            <rect x="265" y="160" width="90" height="24" rx="8" fill="#059669" opacity="0.2"/>
+                            <text x="310" y="270" font-weight="800" fill="#334155" text-anchor="middle" font-size="15">CARBÓN</text>
+
+                            <!-- Tank 3: Softener -->
+                            <rect x="420" y="140" width="120" height="240" rx="24" fill="url(#metalGrad)"/>
+                            <rect x="435" y="160" width="90" height="24" rx="8" fill="#0284c7" opacity="0.2"/>
+                            <text x="480" y="270" font-weight="800" fill="#334155" text-anchor="middle" font-size="14">SUAVIZADOR</text>
+
+                            <!-- UV Module Chamber -->
+                            <rect x="570" y="180" width="90" height="160" rx="16" fill="#0f172a"/>
+                            <rect x="580" y="200" width="70" height="120" rx="10" fill="#38bdf8" opacity="0.7"/>
+                            <text x="615" y="265" font-weight="800" fill="#ffffff" text-anchor="middle" font-size="12">LUZ UV</text>
+
+                            <!-- Interconnecting Pipes -->
+                            <path d="M 200 220 L 250 220 M 370 220 L 420 220 M 540 220 L 570 220" stroke="#64748b" stroke-width="10"/>
+
+                            <!-- Pressure Meters -->
+                            <circle cx="140" cy="100" r="18" fill="#ffffff" stroke="#475569" stroke-width="4"/>
+                            <line x1="140" y1="100" x2="148" y2="92" stroke="#ef4444" stroke-width="3"/>
+
+                            <circle cx="310" cy="100" r="18" fill="#ffffff" stroke="#475569" stroke-width="4"/>
+                            <line x1="310" y1="100" x2="316" y2="90" stroke="#ef4444" stroke-width="3"/>
+
+                            <defs>
+                                <linearGradient id="metalGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#cbd5e1"/>
+                                    <stop offset="35%" stop-color="#f1f5f9"/>
+                                    <stop offset="70%" stop-color="#e2e8f0"/>
+                                    <stop offset="100%" stop-color="#94a3b8"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="precios" class="py-5">
+        <div class="container py-4">
+            <div class="text-center max-w-700 mx-auto mb-5">
+                <span class="badge-soft-green mb-2"><i class="fas fa-tags me-1"></i> Precios Transparentes</span>
+                <h2 class="fw-extrabold fs-1 text-slate-900">Tarifas de Llenado y Servicio</h2>
+                <p class="text-slate-muted fs-5">Selecciona el plan que se adapte a tu hogar o empresa.</p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <!-- Plan 1 -->
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100 text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4 class="fw-bold text-slate-900">Llenado en Planta</h4>
+                            <p class="text-slate-muted small">Trae tu envase a nuestras instalaciones</p>
+                            <div class="my-4">
+                                <span class="display-5 fw-extrabold text-sky-600">$1.00</span>
+                                <span class="text-slate-muted font-semibold">/ Botellón</span>
+                            </div>
+                            <ul class="list-unstyled text-start my-4 lh-lg text-slate-muted small">
+                                <li class="mb-2"><i class="fas fa-check-circle text-emerald-500 me-2"></i> Lavado e higienización previa</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-emerald-500 me-2"></i> Llenado inmediato</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-emerald-500 me-2"></i> Agua 100% Ozonizada</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-emerald-500 me-2"></i> Tapado de seguridad</li>
+                            </ul>
+                        </div>
+                        <a href="https://wa.me/584126758140?text=Hola,%20quisiera%20información%20para%20llenar%20en%20sede" target="_blank" class="btn btn-pastel-outline w-100 py-3">Consultar Sede</a>
+                    </div>
+                </div>
+
+                <!-- Plan 2 (Featured Card) -->
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100 text-center d-flex flex-column justify-content-between border-2 border-sky-400 position-relative shadow-lg" style="background: rgba(255, 255, 255, 0.95);">
+                        <span class="position-absolute top-0 start-50 translate-middle badge bg-emerald-500 px-3 py-2 rounded-pill text-white fw-bold shadow-sm">MÁS SOLICITADO</span>
+                        <div>
+                            <h4 class="fw-bold text-slate-900 mt-2">Recarga Express Domicilio</h4>
+                            <p class="text-slate-muted small">Entregamos en la puerta de tu hogar</p>
+                            <div class="my-4">
+                                <span class="display-5 fw-extrabold text-emerald-600">$2.00</span>
+                                <span class="text-slate-muted font-semibold">/ Botellón</span>
+                            </div>
+                            <ul class="list-unstyled text-start my-4 lh-lg text-slate-muted small">
+                                <li class="mb-2"><i class="fas fa-check-circle text-emerald-500 me-2"></i> Despacho rápido a domicilio</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-emerald-500 me-2"></i> Desinfección al entregar</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-emerald-500 me-2"></i> Sello hermético de garantía</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-emerald-500 me-2"></i> Atención prioritaria</li>
+                            </ul>
+                        </div>
+                        <a href="https://wa.me/584126758140?text=Hola,%20deseo%20pedir%20botellones%20a%20domicilio" target="_blank" class="btn btn-pastel-glow w-100 py-3">Pedir a Domicilio</a>
+                    </div>
+                </div>
+
+                <!-- Plan 3 -->
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100 text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4 class="fw-bold text-slate-900">Plan Empresarial</h4>
+                            <p class="text-slate-muted small">Para empresas, oficinas y comercios (+5 botellones)</p>
+                            <div class="my-4">
+                                <span class="fs-2 fw-extrabold text-sky-600">Tarifa Especial</span>
+                            </div>
+                            <ul class="list-unstyled text-start my-4 lh-lg text-slate-muted small">
+                                <li class="mb-2"><i class="fas fa-check-circle text-emerald-500 me-2"></i> Suministro periódico programado</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-emerald-500 me-2"></i> Mantenimiento de dispensadores</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-emerald-500 me-2"></i> Flete corporativo incluido</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-emerald-500 me-2"></i> Facturación disponible</li>
+                            </ul>
+                        </div>
+                        <a href="https://wa.me/584126758140?text=Hola,%20me%20interesa%20el%20Pack%20Empresarial" target="_blank" class="btn btn-pastel-outline w-100 py-3">Cotizar Empresa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-5 bg-sky-50/60 position-relative">
+        <div class="container py-4">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6">
+                    <span class="badge-soft mb-2"><i class="fas fa-headset me-1"></i> Atención Directa</span>
+                    <h2 class="fw-extrabold fs-1 mb-3 text-slate-900">¿Necesitas agua en tu hogar u oficina?</h2>
+                    <p class="text-slate-muted mb-4 fs-5">Contáctanos directamente o envíanos los detalles de tu pedido para procesarlo al instante.</p>
+                    
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="p-3 bg-white rounded-4 text-emerald-500 me-3 shadow-sm">
+                            <i class="fab fa-whatsapp fs-3"></i>
+                        </div>
+                        <div>
+                            <span class="text-slate-muted d-block small">WhatsApp Directo</span>
+                            <a href="https://wa.me/584126758140" target="_blank" class="fw-extrabold text-slate-900 text-decoration-none fs-5">+58 412-6758140</a>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="p-3 bg-white rounded-4 text-pink-500 me-3 shadow-sm">
+                            <i class="fab fa-instagram fs-3"></i>
+                        </div>
+                        <div>
+                            <span class="text-slate-muted d-block small">Síguenos en Instagram</span>
+                            <a href="https://instagram.com/sarcosiahumana" target="_blank" class="fw-extrabold text-slate-900 text-decoration-none fs-5">@sarcosiahumana</a>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <div class="p-3 bg-white rounded-4 text-sky-500 me-3 shadow-sm">
+                            <i class="fas fa-clock fs-3"></i>
+                        </div>
+                        <div>
+                            <span class="text-slate-muted d-block small">Horario de Atención</span>
+                            <span class="fw-bold text-slate-900">Lunes a Sábado: 8:00 AM - 6:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="glass-card p-4 p-md-5">
+                        <h4 class="fw-bold text-slate-900 mb-4">Solicitar Pedido Rápido</h4>
+                        <form id="contactForm" onsubmit="event.preventDefault(); sendToWhatsApp();">
+                            <div class="mb-3">
+                                <label class="form-label text-slate-600 small fw-bold">Nombre Completo</label>
+                                <input type="text" id="formName" class="form-control form-control-custom" placeholder="Ej. Maria Pérez" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-slate-600 small fw-bold">Cantidad de Botellones</label>
+                                <input type="number" id="formQty" class="form-control form-control-custom" placeholder="Ej. 2" min="1" required>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label text-slate-600 small fw-bold">Dirección / Comentarios</label>
+                                <textarea id="formMessage" class="form-control form-control-custom" rows="3" placeholder="Ej. Av. Principal, Edificio Central, Apt 4B..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-pastel-glow w-100 py-3">
+                                <i class="fab fa-whatsapp me-2 fs-5"></i> Enviar Pedido por WhatsApp
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-4 border-top">
+        <div class="container text-center text-md-between d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
+            <div class="d-flex align-items-center gap-2">
+                <span class="fw-bold text-sky-600 fs-5">AquaPura</span>
+                <span class="text-slate-muted small">| Todos los derechos reservados &copy; 2026</span>
+            </div>
+            <div class="d-flex gap-3">
+                <a href="https://instagram.com/sarcosiahumana" target="_blank" class="text-slate-400 hover:text-pink-500 fs-5"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/584126758140" target="_blank" class="text-slate-400 hover:text-emerald-500 fs-5"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Social Widgets -->
+    <div class="floating-social">
+        <!-- Instagram Floating Glob Button -->
+        <a href="https://instagram.com/sarcosiahumana" target="_blank" class="social-btn btn-instagram" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+            <span class="social-tooltip">@sarcosiahumana</span>
+        </a>
+
+        <!-- WhatsApp Floating Glob Button -->
+        <a href="https://wa.me/584126758140?text=Hola!%20Me%20contacto%20desde%20su%20sitio%20web" target="_blank" class="social-btn btn-whatsapp" aria-label="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+            <span class="social-tooltip">Escríbenos (+584126758140)</span>
+        </a>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Form router to WhatsApp Direct Chat
+        function sendToWhatsApp() {
+            const name = document.getElementById('formName').value;
+            const qty = document.getElementById('formQty').value;
+            const message = document.getElementById('formMessage').value;
+            const phone = "584126758140";
+
+            const text = `Hola AquaPura!%0A%0A*Nuevo Pedido desde la Web:*%0A- *Nombre:* ${encodeURIComponent(name)}%0A- *Botellones:* ${encodeURIComponent(qty)}%0A- *Dirección/Detalles:* ${encodeURIComponent(message)}`;
+
+            window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+        }
+    </script>
+</body>
+</html>
